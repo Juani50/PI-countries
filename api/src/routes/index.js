@@ -11,22 +11,7 @@ const router = Router();
 // Ejemplo: router.use('/auth', authRouter);
 const getCountries = async () => {
     const apiUrl = await axios.get(API_URL);
-    // const info = await apiUrl.data.map(e => {
-    //     return{
-    //         id: e.cca3,
-    //         flags: e.flags[0],
-    //         name: e.name.common,
-    //         continents: e.continents[0],
-    //         capital: e.capital ? e.capital[0] : 'Not found',
-    //         subregion: e.subregion,
-    //         area: e.area,
-    //         population: e.population
-    //     }
-      
-    
-    // })
-    // await Country.bulkCreate(info)
-    // return info
+   
     const info = await apiUrl.data.forEach(async e => {
         await Country.findOrCreate({
             where:{
@@ -96,23 +81,49 @@ router.get('/countries', async (req, res) =>{
     }
 })
 
- router.get('countries/:id', async (req, res) => {
+ router.get('/countries/:id', async (req, res) => {
+    let {id} = req.params;
+    // const dataApi = await axios.get(`https://restcountries.com/v3/alpha/${id}`) 
     try {
-      const idpais = req.params.idPais.toUpperCase();
-      // console.log(idpais)
-      const country = await Country.findOne({
-        where: {
-          id: idpais,
-        },
-        include: Activity,
-      });
-  
-      return res.json(country);
+      let searchForId = await Country.findByPk(id.toUpperCase())
+    //   console.log(searchForId)
+       res.json(searchForId ? searchForId : `No encontramos ningun pais con que coincida con el ID`)
     } catch (error) {
-      res.send(error);
+       res.status(404).send(`No se encontro el pais `);
     }
   })
   
+router.post('/activities', async(req, res) => {
+
+    const {
+        name,
+        difficulty,
+        duration,
+        season,
+        countries
+    } = req.body;
+
+    try {
+        // let createActivity = await Activity.create({name, difficulty, duration, season })
+        let createActivity = await Activity.findOrCreate({ 
+            where: {name: name},
+            defaults: {name, difficulty, duration, season},
+        })
+        console.log(createActivity)
+        let activitycoutry = await Country.findAll({where: {id: countries}});
+        activitycoutry.map(async (country) => {
+            await country.addActivity(createActivity[0].id)
+        } )
+        res.status(200).send("Se agrego la actividad correctamente")
+    } catch (error) {
+        res.status(404).send(error)
+    }
+
+});
+
+
+
+
 
 
 
