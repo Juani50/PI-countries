@@ -36,3 +36,10 @@
     transform: rotate(360deg);
   }
 }
+
+.LandingPage{
+   background-color: red;
+   height: 100vh;
+
+
+}

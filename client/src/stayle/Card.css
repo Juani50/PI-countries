@@ -1,0 +1,16 @@
+.Card{
+    border-radius: 10px;
+    box-shadow: 4px 4px 8px 4px rgba(0,0,0,0.2);
+    transform: 2s;
+    transition: 0.6s;
+    width: 400px;
+}
+
+.Card > img{
+    width: 250px;
+    height: 200px;
+
+}
+.Card:hover{
+   transform: scale(1.05);
+}

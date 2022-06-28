@@ -1,0 +1,9 @@
+.container {
+    display: flex;
+    padding: 2px 16px;
+    flex-wrap: wrap;
+    gap:20px;
+    width: 93%;
+    margin: 0 auto;
+  }
+  
