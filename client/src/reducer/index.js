@@ -1,5 +1,6 @@
 const initialState = {
   countries: [],
+  detail: [],
 };
 
 function rootReducer(state = initialState, action) {
@@ -9,9 +10,14 @@ function rootReducer(state = initialState, action) {
         ...state,
         countries: action.payload,
       };
-    case "POST_ACTIVITY":
+    case "POST_ACTIVITIES":
       return {
         ...state,
+      };
+    case "GET_DETAILS":
+      return {
+        ...state,
+        detail: action.payload,
       };
     default:
       return {

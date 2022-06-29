@@ -16,3 +16,18 @@ export function postActivities(payload){
         return response;
      }
 }
+
+export function getDetail(id){
+    return async function (dispatch){
+        try{
+            var {data} = await axios.get("http://localhost:3001/countries/" + id);
+            return dispatch({
+                type:"GET_DETAILS",
+                payload: data,
+            })
+        } catch(error){
+            console.log(error)
+        }
+
+    }
+}

@@ -4,7 +4,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { getCountries } from "../actions";
 import Card from "./Card";
 import { Link } from "react-router-dom";
-import "../stayle/Home.css"
+import "../stayle/Home.css";
 
 export default function Home() {
   const dispatch = useDispatch();
@@ -16,7 +16,7 @@ export default function Home() {
   return (
     <div>
       <Link to="/createActivitie">
-      <button>Crear actividad</button>
+        <button>Crear actividad</button>
       </Link>
       <div>
         <select>
