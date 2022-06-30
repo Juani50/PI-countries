@@ -18,11 +18,13 @@ export default function Detail(props) {
   return (
     <div>
       <Link to="/home">
+        <div className="back">
         <button>Volver</button>
+        </div>
       </Link>
       {Object.keys(myCountrie).length > 0 ? (
-        <div className="detail">
-          <div>
+        <div >
+          <div className="detail">
             <img
               src={myCountrie.flags}
               alt="img not found"

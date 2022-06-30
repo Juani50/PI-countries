@@ -5,16 +5,29 @@ import { getCountries } from "../actions";
 import Card from "./Card";
 import { Link } from "react-router-dom";
 import "../stayle/Home.css";
+import Paginado from "./Paginado";
 
 export default function Home() {
   const dispatch = useDispatch();
   const allCountries = useSelector((state) => state.countries);
+  const [currentPage, setCurrentPage] = useState(1);
+  const [countriesPerPage, sercountriesPerPage] = useState(10);
+  const indexOfLastCountrie = currentPage * countriesPerPage;
+  const indexOfFirstcountrie = indexOfLastCountrie - countriesPerPage;
+  const currentCountrie = allCountries.slice(
+    indexOfFirstcountrie,
+    indexOfLastCountrie
+  );
+
+  const paginado = (pageNumber) => {
+    setCurrentPage(pageNumber);
+  };
 
   useEffect(() => {
     dispatch(getCountries());
   }, [dispatch]);
   return (
-    <div>
+    <div className="Home">
       <Link to="/createActivitie">
         <button>Crear actividad</button>
       </Link>
@@ -38,9 +51,13 @@ export default function Home() {
           <option value="may">Mayor poblacion</option>
           <option value="men">Menor poblacion</option>
         </select>
-
+        <Paginado
+          countriesPerPage={countriesPerPage}
+          allCountries={allCountries.length}
+          paginado={paginado}
+        />
         <div className="container">
-          {allCountries?.slice(0, 9).map((e) => (
+          {currentCountrie?.map((e) => (
             <Card
               name={e.name}
               flags={e.flags}

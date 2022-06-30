@@ -1,9 +1,19 @@
 .container {
-    display: flex;
-    padding: 2px 16px;
-    flex-wrap: wrap;
-    gap:20px;
-    width: 93%;
-    margin: 0 auto;
-  }
+  display: flex;
+  padding: 2px 16px;
+  flex-wrap: wrap;
+  gap: 20px;
+  width: 93%;
+  margin: 0 auto;
+}
+
+.Home {
+  background-image: url(../components/imagenHome/viktor-forgacs-DzpViKMZHe8-unsplash.jpg);
+  height: 1200px;
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position: center;
+  margin: auto;
+  background-attachment: fixed;
   
+}
