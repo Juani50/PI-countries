@@ -1,63 +1,113 @@
 import React, { Fragment } from "react";
 import { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { getCountries } from "../actions";
+import {
+  getCountries,
+  setCurrentPage,
+  filterByContinent,
+  orderByCountrie,
+  orderByPopulation,
+} from "../actions";
 import Card from "./Card";
 import { Link } from "react-router-dom";
 import "../stayle/Home.css";
-import Paginado from "./Paginado";
+import { SearchBox } from "../components/SearchBar";
+
+const ITEMS_FOR_PAGE = 10;
 
 export default function Home() {
   const dispatch = useDispatch();
+  const currentPage = useSelector((state) => state.currentPage);
   const allCountries = useSelector((state) => state.countries);
-  const [currentPage, setCurrentPage] = useState(1);
-  const [countriesPerPage, sercountriesPerPage] = useState(10);
-  const indexOfLastCountrie = currentPage * countriesPerPage;
-  const indexOfFirstcountrie = indexOfLastCountrie - countriesPerPage;
-  const currentCountrie = allCountries.slice(
-    indexOfFirstcountrie,
-    indexOfLastCountrie
-  );
-
-  const paginado = (pageNumber) => {
-    setCurrentPage(pageNumber);
-  };
+  const [order, setOrder] = useState("");
 
   useEffect(() => {
     dispatch(getCountries());
   }, [dispatch]);
+
+  const filterCountries = () => {
+    if (currentPage === 0) {
+      return allCountries.slice(currentPage, currentPage + 9);
+    }
+    return allCountries.slice(currentPage, currentPage + ITEMS_FOR_PAGE);
+  };
+  const currentCountries = filterCountries();
+
+  const nextPage = () => {
+    currentPage === 0
+      ? dispatch(setCurrentPage(currentPage + 9))
+      : dispatch(setCurrentPage(currentPage + ITEMS_FOR_PAGE));
+  };
+  const prevPage = () => {
+    if (currentPage === 9) return dispatch(setCurrentPage(currentPage - 9));
+    if (currentPage > 0) dispatch(setCurrentPage(currentPage - ITEMS_FOR_PAGE));
+  };
+
+  const handleFilterByContinents = (e) => {
+    dispatch(filterByContinent(e.target.value));
+  };
+  function handleSort(e) {
+    e.preventDefault();
+    dispatch(orderByCountrie(e.target.value));
+    // console.log(e.target.value)
+    // filterCountries(1);
+    setOrder(`Ordenado ${e.target.value}`);
+  }
+  function handleSortPopulation(e) {
+    e.preventDefault();
+    dispatch(orderByPopulation(e.target.value));
+    // console.log(e.target.value)
+    // filterCountries(1);
+    setOrder(`Ordenado ${e.target.value}`);
+  }
+
   return (
     <div className="Home">
+      <SearchBox />
       <Link to="/createActivitie">
         <button>Crear actividad</button>
       </Link>
       <div>
-        <select>
-          <option value="asc">Ascendente</option>
-          <option value="desc">Descendente</option>
+        <select onChange={(e) => handleSort(e)}>
+          <option disabled selected defaultValue>
+            Ordenado por...
+          </option>
+          <option value="A-Z">A-Z</option>
+          <option value="Z-A">Z-A</option>
         </select>
-        <select>
-          <option value="america">America</option>
-          <option value="africa">Africa</option>
-          <option value="asia">Asia</option>
-          <option value="europa">Europa</option>
-          <option value="oceania">Oceania</option>
-          <option value="antanrtida">Antartida</option>
+        <select onChange={(e) => handleFilterByContinents(e)}>
+          <option value="All">Todos</option>
+          <option value="North America">America del Norte</option>
+          <option value="South America">America del Sur</option>
+          <option value="Africa">Africa</option>
+          <option value="Asia">Asia</option>
+          <option value="Europe">Europa</option>
+          <option value="Oceania">Oceania</option>
+          <option value="Antarctica">Antartida</option>
         </select>
         <select>
           <option value="act">Actividad Turistica</option>
         </select>
-        <select>
+        <select onChange={(e) => handleSortPopulation(e)}>
+          <option disabled selected defaultValue>
+            Ordenado por...
+          </option>
           <option value="may">Mayor poblacion</option>
           <option value="men">Menor poblacion</option>
         </select>
-        <Paginado
-          countriesPerPage={countriesPerPage}
-          allCountries={allCountries.length}
-          paginado={paginado}
-        />
+        <div>
+          <button disabled={currentPage === 0} onClick={prevPage}>
+            Prev
+          </button>
+          <button
+            disabled={currentCountries.length < 9 || currentPage === 240}
+            onClick={nextPage}
+          >
+            Next
+          </button>
+        </div>
         <div className="container">
-          {currentCountrie?.map((e) => (
+          {currentCountries?.map((e) => (
             <Card
               name={e.name}
               flags={e.flags}

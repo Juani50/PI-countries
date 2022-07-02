@@ -32,7 +32,7 @@ export default function Detail(props) {
               height="200px"
             />
             <h1>{myCountrie.name}</h1>
-            <h3>ISO3:{myCountrie.id}</h3>
+            <h3>ISO3: {myCountrie.id}</h3>
             <h3>Capital: {myCountrie.capital}</h3>
             <h3>Subregion: {myCountrie.subregion}</h3>
             <h3>Área: {myCountrie.area} km2</h3>

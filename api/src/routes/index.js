@@ -55,13 +55,6 @@ const getDbInfo = async (apiPais) => {
   });
 };
 
-// const getAllCountries = async () => {
-//     const api = await getCountries();
-//     // const dataBase = await getDbInfo(api);
-//     // const apiDat = [...dataBase, ...api]
-//     return api
-// }
-
 router.get("/countries", async (req, res) => {
   const name = req.query.name;
   let countriesTotal = await getCountries();
@@ -83,7 +76,7 @@ router.get("/countries/:id", async (req, res) => {
   let { id } = req.params;
   // const dataApi = await axios.get(`https://restcountries.com/v3/alpha/${id}`)
   try {
-    let searchForId = await Country.findByPk(id,{include: Activity});
+    let searchForId = await Country.findByPk(id, { include: Activity });
     //   console.log(searchForId)
     res.json(
       searchForId
@@ -99,7 +92,6 @@ router.post("/activities", async (req, res) => {
   const { name, difficulty, duration, season, countries } = req.body;
 
   try {
-    // let createActivity = await Activity.create({name, difficulty, duration, season })
     let createActivity = await Activity.findOrCreate({
       where: { name: name },
       defaults: { name, difficulty, duration, season },
