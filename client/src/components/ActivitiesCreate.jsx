@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useHistory } from "react-router-dom";
 import { postActivities, getCountries } from "../actions/index";
 import { useDispatch, useSelector } from "react-redux";
 import "../stayle/ActivitiesCreate.css"
@@ -16,6 +16,7 @@ function validate(input) {
 }
 
 export function ActivityCreate() {
+  const history = useHistory();
   const dispatch = useDispatch();
   const activity = useSelector((state) => state.countries);
   const [errors, setErrors] = useState({});
@@ -54,7 +55,6 @@ export function ActivityCreate() {
     e.preventDefault();
     dispatch(postActivities(input));
     // console.log(input)
-    alert("Actividad creada!");
     setInput({
       name: "",
       difficulty: 0,
@@ -62,6 +62,8 @@ export function ActivityCreate() {
       season: "",
       countries: [],
     });
+    alert("Actividad creada!");
+    history.push("/home")
   }
 
   useEffect(() => {

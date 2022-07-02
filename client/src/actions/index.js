@@ -16,7 +16,11 @@ export function postActivities(payload) {
       "http://localhost:3001/activities",
       payload
     );
-    return response;
+    return dispatch({
+      type: "POST_ACTIVITIES",
+      payload: response
+
+    });
   };
 }
 
@@ -57,16 +61,28 @@ export function filterByContinent(payload) {
     payload,
   };
 }
-  export function orderByCountrie(payload){
-    return{
-      type: "ORDER_BY_COUNTRIE",
-      payload
-    }
-  }
-  export function orderByPopulation(payload){
-    return{
-      type: "ORDER_BY_POPULATION",
-      payload
-    }
-  }
+export function orderByCountrie(payload) {
+  return {
+    type: "ORDER_BY_COUNTRIE",
+    payload,
+  };
+}
+export function orderByPopulation(payload) {
+  return {
+    type: "ORDER_BY_POPULATION",
+    payload,
+  };
+}
+export function getAllActivities(payload) {
+  return async function (dispatch) {
+    const { data } = await axios.get("http://localhost:3001/allActivities");
+    return dispatch({
+      type: "GET_ACTIVITIES",
+      payload: data,
+    });
+  };
+}
 
+export function getFilterActivities(nameActivity) {
+  return { type: "GET_FILTER_ACTIVITIES", payload: nameActivity };
+}

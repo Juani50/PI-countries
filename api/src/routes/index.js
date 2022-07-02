@@ -12,7 +12,7 @@ const router = Router();
 const getCountries = async () => {
   const apiUrl = await axios.get(API_URL);
   let countryDb = await Country.findAll({
-    raw: true,
+    include: Activity,
   });
   if (countryDb.length === 0) {
     const info = await apiUrl.data.forEach(async (e) => {
@@ -104,6 +104,14 @@ router.post("/activities", async (req, res) => {
     res.status(200).send("Se agrego la actividad correctamente");
   } catch (error) {
     res.status(404).send(error);
+  }
+});
+router.get("/allActivities", async (req, res) => {
+  try {
+      let activities = await Activity.findAll();
+      res.status(200).json(activities);
+  } catch (error) {
+      res.status(404).send("Error al encontrar actividades!!");
   }
 });
 

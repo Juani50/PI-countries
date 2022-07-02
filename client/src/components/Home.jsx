@@ -7,6 +7,8 @@ import {
   filterByContinent,
   orderByCountrie,
   orderByPopulation,
+  getAllActivities,
+  getFilterActivities
 } from "../actions";
 import Card from "./Card";
 import { Link } from "react-router-dom";
@@ -19,7 +21,10 @@ export default function Home() {
   const dispatch = useDispatch();
   const currentPage = useSelector((state) => state.currentPage);
   const allCountries = useSelector((state) => state.countries);
+  const allActivities = useSelector((state) => state.allActivities);
   const [order, setOrder] = useState("");
+
+  if (!allActivities.length) dispatch(getAllActivities())
 
   useEffect(() => {
     dispatch(getCountries());
@@ -60,6 +65,10 @@ export default function Home() {
     // filterCountries(1);
     setOrder(`Ordenado ${e.target.value}`);
   }
+   function handleFilterByActivities(e) {
+    e.preventDefault()
+    dispatch(getFilterActivities(e.target.value))
+}
 
   return (
     <div className="Home">
@@ -85,8 +94,12 @@ export default function Home() {
           <option value="Oceania">Oceania</option>
           <option value="Antarctica">Antartida</option>
         </select>
-        <select>
+        <select onChange={(e) => handleFilterByActivities(e)}>
           <option value="act">Actividad Turistica</option>
+          {allActivities?.map(ac => (
+                      <option key={ac.id} value={ac.name}>{ac.name}</option>
+                    ))
+                  }
         </select>
         <select onChange={(e) => handleSortPopulation(e)}>
           <option disabled selected defaultValue>

@@ -1,6 +1,7 @@
 const initialState = {
   countries: [],
   allCountries: [],
+  allActivities:[],
   detail: [],
   currentPage: 0,
   status: 0,
@@ -17,6 +18,7 @@ function rootReducer(state = initialState, action) {
     case "POST_ACTIVITIES":
       return {
         ...state,
+        allActivities: []
       };
     case "GET_DETAILS":
       return {
@@ -78,10 +80,10 @@ function rootReducer(state = initialState, action) {
               }
               return 0;
             });
-            return {
-              ...state,
-              countries: sortedArr,
-            };
+      return {
+        ...state,
+        countries: sortedArr,
+      };
     case "ORDER_BY_POPULATION":
       let sortedP =
         action.payload === "men"
@@ -107,6 +109,31 @@ function rootReducer(state = initialState, action) {
         ...state,
         countries: sortedP,
       };
+    case "GET_ACTIVITIES":
+      return {
+        ...state,
+        allActivities: action.payload,
+      };
+    case "GET_FILTER_ACTIVITIES": {
+      const allCountries = state.allCountries;
+      var filterActivities = allCountries.filter((p) => {
+        let activities = p.activities.filter((a) =>
+          a.name.includes(action.payload)
+        );
+        if (activities && activities.length > 0) {
+          return true;
+        }
+        return false;
+      });
+      if (action.payload === "allCountries") {
+        filterActivities = state.countries.filter((c) => c.Activities.length);
+      }
+      return {
+        ...state,
+        currentPage: 0,
+        countries: filterActivities,
+      };
+    }
 
     default:
       return {
