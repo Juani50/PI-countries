@@ -16,7 +16,7 @@ export default function Detail(props) {
   const myCountrie = useSelector((state) => state.detail);
   //   console.log( "hola",myCountrie)
   return (
-    <div>
+    <div className="contdetail">
       <Link to="/home">
         <div className="back">
         <button>Volver</button>

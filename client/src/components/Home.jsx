@@ -8,7 +8,7 @@ import {
   orderByCountrie,
   orderByPopulation,
   getAllActivities,
-  getFilterActivities
+  getFilterActivities,
 } from "../actions";
 import Card from "./Card";
 import { Link } from "react-router-dom";
@@ -24,7 +24,7 @@ export default function Home() {
   const allActivities = useSelector((state) => state.allActivities);
   const [order, setOrder] = useState("");
 
-  if (!allActivities.length) dispatch(getAllActivities())
+  if (!allActivities.length) dispatch(getAllActivities());
 
   useEffect(() => {
     dispatch(getCountries());
@@ -65,26 +65,26 @@ export default function Home() {
     // filterCountries(1);
     setOrder(`Ordenado ${e.target.value}`);
   }
-   function handleFilterByActivities(e) {
-    e.preventDefault()
-    dispatch(getFilterActivities(e.target.value))
-}
+  function handleFilterByActivities(e) {
+    e.preventDefault();
+    dispatch(getFilterActivities(e.target.value));
+  }
 
   return (
     <div className="Home">
       <SearchBox />
-      <Link to="/createActivitie">
-        <button>Crear actividad</button>
-      </Link>
-      <div>
-        <select onChange={(e) => handleSort(e)}>
+      <div className="filtros">
+        <select className="az" onChange={(e) => handleSort(e)}>
           <option disabled selected defaultValue>
             Ordenado por...
           </option>
           <option value="A-Z">A-Z</option>
           <option value="Z-A">Z-A</option>
         </select>
-        <select onChange={(e) => handleFilterByContinents(e)}>
+        <select
+          className="continent3"
+          onChange={(e) => handleFilterByContinents(e)}
+        >
           <option value="All">Todos</option>
           <option value="North America">America del Norte</option>
           <option value="South America">America del Sur</option>
@@ -94,42 +94,59 @@ export default function Home() {
           <option value="Oceania">Oceania</option>
           <option value="Antarctica">Antartida</option>
         </select>
-        <select onChange={(e) => handleFilterByActivities(e)}>
+        <select
+          className="actividadturi"
+          onChange={(e) => handleFilterByActivities(e)}
+        >
           <option value="act">Actividad Turistica</option>
-          {allActivities?.map(ac => (
-                      <option key={ac.id} value={ac.name}>{ac.name}</option>
-                    ))
-                  }
+          {allActivities?.map((ac) => (
+            <option key={ac.id} value={ac.name}>
+              {ac.name}
+            </option>
+          ))}
         </select>
-        <select onChange={(e) => handleSortPopulation(e)}>
+        <select className="maymen" onChange={(e) => handleSortPopulation(e)}>
           <option disabled selected defaultValue>
             Ordenado por...
           </option>
           <option value="may">Mayor poblacion</option>
           <option value="men">Menor poblacion</option>
         </select>
-        <div>
-          <button disabled={currentPage === 0} onClick={prevPage}>
-            Prev
-          </button>
-          <button
-            disabled={currentCountries.length < 9 || currentPage === 240}
-            onClick={nextPage}
-          >
-            Next
-          </button>
-        </div>
-        <div className="container">
-          {currentCountries?.map((e) => (
-            <Card
-              name={e.name}
-              flags={e.flags}
-              continents={e.continents}
-              key={e.id}
-              id={e.id}
-            />
-          ))}
-        </div>
+        <Link to="/createActivitie">
+          <a className="fancy" href="#">
+            <span className="top-key"></span>
+            <span className="text">Crear Actividad</span>
+            <span className="bottom-key-1"></span>
+            <span className="bottom-key-2"></span>
+          </a>
+        </Link>
+      </div>
+      <div>
+        <button
+          className="nextprev"
+          disabled={currentPage === 0}
+          onClick={prevPage}
+        >
+          Prev
+        </button>
+        <button
+          className="nextprev"
+          disabled={currentCountries.length < 9 || currentPage === 240}
+          onClick={nextPage}
+        >
+          Next
+        </button>
+      </div>
+      <div className="container">
+        {currentCountries?.map((e) => (
+          <Card
+            name={e.name}
+            flags={e.flags}
+            continents={e.continents}
+            key={e.id}
+            id={e.id}
+          />
+        ))}
       </div>
     </div>
   );

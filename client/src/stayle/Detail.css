@@ -4,11 +4,22 @@
     width: 400px;
     margin-left: auto;
     margin-right: auto;
-    margin-top: 10px;
+    margin-top: auto;
+    backdrop-filter: blur(5px);
 }
 .back{
     margin-left: 10px;
     margin-right: auto;
-    margin-top: 10px;
+    margin-top: 0px;
     width: 5px;
+    cursor: pointer;
+}
+.contdetail{
+    background-image: url("../components/ActivitieCreate.img/andrew-neel-1-29wyvvLJA-unsplash.jpg");
+    height: 150vh;
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: center;
+    margin: auto;
+    background-attachment: fixed;
 }
