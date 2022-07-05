@@ -72,10 +72,20 @@ export default function Home() {
 
   return (
     <div className="Home">
-      <SearchBox />
+      <div className="inputCrear">
+      <SearchBox/>
+        <Link to="/createActivitie">
+          <span className="fancy" href="#">
+            <span className="top-key"></span>
+            <span className="text">Crear Actividad</span>
+            <span className="bottom-key-1"></span>
+            <span className="bottom-key-2"></span>
+          </span>
+        </Link>
+      </div>
       <div className="filtros">
-        <select className="az" onChange={(e) => handleSort(e)}>
-          <option disabled selected defaultValue>
+        <select defaultValue = "DEFAULT" className="az" onChange={(e) => handleSort(e)}>
+          <option disabled value = "DEFAULT">
             Ordenado por...
           </option>
           <option value="A-Z">A-Z</option>
@@ -105,21 +115,13 @@ export default function Home() {
             </option>
           ))}
         </select>
-        <select className="maymen" onChange={(e) => handleSortPopulation(e)}>
-          <option disabled selected defaultValue>
+        <select defaultValue = "DEFAULT" className="maymen" onChange={(e) => handleSortPopulation(e)}>
+          <option disabled value = "DEFAULT">
             Ordenado por...
           </option>
           <option value="may">Mayor poblacion</option>
           <option value="men">Menor poblacion</option>
         </select>
-        <Link to="/createActivitie">
-          <a className="fancy" href="#">
-            <span className="top-key"></span>
-            <span className="text">Crear Actividad</span>
-            <span className="bottom-key-1"></span>
-            <span className="bottom-key-2"></span>
-          </a>
-        </Link>
       </div>
       <div>
         <button

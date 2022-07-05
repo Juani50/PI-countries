@@ -5,11 +5,17 @@
   gap: 20px;
   width: 93%;
   margin: 0 auto;
+  margin-top: 30px;
+}
+.inputCrear{
+  display: flex;
+  margin-left: 500px;
+  padding-top: 50px;
 }
 
 .Home {
   background-image: url(../components/imagenHome/viktor-forgacs-DzpViKMZHe8-unsplash.jpg);
-  height: 1200px;
+  height: 1700px;
   background-repeat: no-repeat;
   background-size: cover;
   background-position: center;
@@ -17,24 +23,26 @@
   background-attachment: fixed;
   }
   .maymen{
-    margin-left: 100px;
+    margin-left: 50px;
+    margin-right: 50px;
     cursor: pointer;
     
   }
   .actividadturi{
-    margin-left: 100px;
+    margin-left: 50px;
     cursor: pointer;
   }
   .continent3{
-    margin-left: 100px;
+    margin-left: 50px;
     cursor: pointer;
   }
   .ca{
     cursor: pointer;
-    margin-left: 100px;
+    margin-left: 50px;
   }
   .az{
     cursor: pointer;
+    margin-left: 50px;
   }
   .nextprev{
     cursor: pointer;
@@ -45,7 +53,11 @@
     
   }
   .filtros{
-    margin-top: 25px;
+    /* width: 100vh; */
+    margin-top: 70px;
+    display: flex;
+    /* width: 700px; */
+    justify-content: space-evenly;
     
   }
 
@@ -71,7 +83,8 @@
     transition: all 0.3s ease-in-out;
     user-select: none;
     font-size: 13px;
-    margin-right: 25px;
+    margin-right: 250px;
+    /* margin-top: 10px; */
    }
    
    .fancy::before {
@@ -154,4 +167,80 @@
     .fancy:hover .bottom-key-2 {
     right: 0;
     width: 0;
+   }
+
+
+
+
+
+
+
+   :root {
+    --background-gradient: linear-gradient(30deg, #f39c12 30%, #f1c40f);
+    --gray: #34495e;
+    --darkgray: #2c3e50;
+  }
+  
+  .filtros select {
+    /* Reset Select */
+    appearance: none;
+    outline: 0;
+    border: 0;
+    box-shadow: none;
+    /* Personalize */
+    flex: 1;
+    padding: 0 1em;
+    color: #fff;
+    background-color: var(--darkgray);
+    background-image: none;
+    cursor: pointer;
+  }
+  /* Remove IE arrow */
+  .filtros select::-ms-expand {
+    display: none;
+  }
+  /* Custom Select wrapper */
+  .filtros select {
+    position: relative;
+    display: flex;
+    width: 20em;
+    height: 3em;
+    border-radius: .25em;
+    overflow: hidden;
+  }
+  /* Arrow */
+  .filtros select::after {
+    content: '\25BC';
+    position: absolute;
+    top: 0;
+    right: 0;
+    padding: 1em;
+    background-color: #34495e;
+    transition: .25s all ease;
+    pointer-events: none;
+  }
+  /* Transition */
+  .filtros select:hover::after {
+    color: #f39c12;
+  }
+  
+  /* Other styles*/
+  /* .filtros body {
+    color: #fff;
+    background: var(--background-gradient);
+  }
+  h1 {
+    margin: 0 0 0.25em;
+  }
+  a {
+    font-weight: bold;
+    color: var(--gray);
+    text-decoration: none;
+    padding: .25em;
+    border-radius: .25em;
+    background: white;
+  }
+   */
+   .filtros {
+    display:flex;
    }

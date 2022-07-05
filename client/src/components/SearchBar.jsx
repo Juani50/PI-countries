@@ -3,6 +3,7 @@ import { useEffect } from "react";
 import { useState } from "react";
 import { useDispatch } from "react-redux";
 import { getCountries, getCountriesMatch } from "../actions/index";
+import "../stayle/SearchBar.css"
 
 export const SearchBox = () => {
   const [country, setCountry] = useState("");
@@ -16,14 +17,15 @@ export const SearchBox = () => {
     setCountry(e.target.value);
   };
 
-  return(
-    <input
-    id="searchInput"
-    type="search"
-    value={country}
-    onChange={onChange}
-    placeholder="Search..."
-  />
-
-  )
+  return (
+    <div className="textInputWrapper">
+      <input
+        id="searchInput"
+        type="search"
+        value={country}
+        onChange={onChange}
+        placeholder="Search..."
+      />
+    </div>
+  );
 };

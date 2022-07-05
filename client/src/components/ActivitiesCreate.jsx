@@ -6,7 +6,8 @@ import "../stayle/ActivitiesCreate.css";
 
 function validate(input) {
   let errors = {};
-  if (!input.name) {
+  if (!input.name || !/^[a-z\s]+$/i.test(input.name)) {
+
     errors.name = "Se requiere nombre de actividad";
   }
   if (!input.difficulty) {
@@ -88,7 +89,7 @@ export function ActivityCreate() {
 
   function activateButton(input) {
     if (
-      input.name &&
+      input.name && /^[a-z\s]+$/i.test(input.name) &&
       input.difficulty &&
       input.duration &&
       input.season &&
@@ -101,7 +102,9 @@ export function ActivityCreate() {
 
   return (
     <div className="crearAct">
-      <Link to="/home">Volver</Link>
+      <Link to="/home">
+        <button className="botonV">Volver</button>
+      </Link>
       <h1 className="tituloact">Crea una actividad</h1>
       <form onSubmit={(e) => handleSubmit(e)}>
         <div>
@@ -148,12 +151,12 @@ export function ActivityCreate() {
           <label className="tituloact" htmlFor="season">
             Temporada:{" "}
           </label>
-          <select
+          <select defaultValue = "DEFAULT"
             name="season"
             id="selectSeason"
             onChange={(e) => handleSelect(e)}
           >
-            <option disabled selected defaultValue>
+            <option disabled value = "DEFAULT">
               Seleccionar
             </option>
             <option value="Verano">Verano</option>
@@ -167,16 +170,16 @@ export function ActivityCreate() {
           <label className="tituloact" htmlFor="selectCountries">
             Países:{" "}
           </label>
-          <select
+          <select defaultValue = "DEFAULT"
             name="countries"
             id="selectCountries"
             onChange={(e) => handleSelect(e)}
           >
-            <option disabled selected defaultValue>
+            <option disabled value = "DEFAULT">
               Seleccionar
             </option>
             {activity?.map((e) => (
-              <option value={e.id}>{e.name}</option>
+              <option key={e.id} value={e.id}>{e.name}</option>
             ))}
           </select>
         </div>

@@ -7,11 +7,14 @@
     margin-top: auto;
     backdrop-filter: blur(5px);
 }
+.back2{
+    padding: 30px;
+}
 .back{
-    margin-left: 10px;
-    margin-right: auto;
+    display: flex;
+    margin-left: 50px;
     margin-top: 0px;
-    width: 5px;
+    /* width: 5px; */
     cursor: pointer;
 }
 .contdetail{

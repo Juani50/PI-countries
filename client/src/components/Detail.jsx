@@ -18,8 +18,8 @@ export default function Detail(props) {
   return (
     <div className="contdetail">
       <Link to="/home">
-        <div className="back">
-        <button>Volver</button>
+        <div className="back2">
+        <button className="back">Volver</button>
         </div>
       </Link>
       {Object.keys(myCountrie).length > 0 ? (

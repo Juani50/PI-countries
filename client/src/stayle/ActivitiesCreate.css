@@ -5,6 +5,16 @@
   background-size: cover;
   background-position: center;
   margin: auto;
+  padding: 50px;
+}
+.errors{
+  color: beige;
+}
+ .crearAct .botonV{
+  cursor: pointer;
+  display: flex;
+  margin-left: 50px;
+ 
 }
 
 .tituloact {
